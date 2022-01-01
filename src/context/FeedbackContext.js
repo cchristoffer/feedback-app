@@ -22,9 +22,9 @@ export const FeedbackProvider = ({ children }) => {
     },
   ]);
 
-  const [feedBackEdit, setFeedbackEdit] = useState({
+  const [feedbackEdit, setFeedbackEdit] = useState({
       item: {},
-      edit: false
+      edit: false,
   })
 
   const deleteFeedback = (id) => {
@@ -33,6 +33,11 @@ export const FeedbackProvider = ({ children }) => {
     }
   };
 
+  const updateFeedback = (id, updItem) => {
+    setFeedback(feedback.map((item) => (item.id === id ? {...item, ...updItem} : item))
+    )
+  }
+
   const addFeedback = (newFeedback) => {
     newFeedback.id = uuidv4();
     setFeedback([newFeedback, ...feedback]);
@@ -40,9 +45,9 @@ export const FeedbackProvider = ({ children }) => {
 
 
   const editFeedback = (item) => {
-      setFeedbackEdit = ({
+      setFeedbackEdit({
           item,
-          edit: true
+          edit: true,
       })
   }
 
@@ -52,7 +57,9 @@ export const FeedbackProvider = ({ children }) => {
         feedback,
         deleteFeedback,
         addFeedback,
-        editFeedback
+        editFeedback,
+        feedbackEdit,
+        updateFeedback
       }}
     >
       {children}
